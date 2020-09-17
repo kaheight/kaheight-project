@@ -1,16 +1,21 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <nav aria-label="breadcrumb" >
+      <ol class="breadcrumb">
+        <button type="button" class="btn btn-outline-info btn-sm ">
+            <span class="fa fa-close" ></span>
+        </button>
+      </ol>
+    </nav>
+    <div class="d-flex justify-content-center align-items-center container">
+      <router-view/>
     </div>
-    <router-view/>
   </div>
 </template>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Alata', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
