@@ -1,58 +1,50 @@
 <template>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-8">
-            <!-- ini nanti dihapus -->
-            <div class="card mt-3 mb-3 shadow-sm" style="width: 50rem;">
-  <div class="card-body">
-      <div class="row justify-content-center">
-          <img src="../assets/question.png" style="width: 8rem; height:7rem;" alt="question">
-      </div>
-      <div class="row justify-content-center mb-5">
-          <div class="col bg-white rounded-lg">
-    <h5 class="card-title text-dark pt-3 pb-3 pl-3 pr-3 text-wrap">PertanyaanlalalalalalalalaPertanyaanlalalalalalalalalalallalalalalPertanyaanlalalalalalalalalalallalalalalPertanyaanlalalalalalalalalalallalalalallalallalalalal</h5>
-    </div>
-    </div>
-    <div class=" row justify-content-center">
-        <div class="col-5 mb-3">
-        <button type="button" class="btn btn-info btn-sm btn-block" active="btn-primary">option 1</button>
-        </div>
-        <div class="col-5 mb-3">
-        <button type="button" class="btn btn-info btn-sm btn-block" active="btn-primary">option 2</button>
-        </div>
-                </div>
+    <div class="container">
+        {{questionList[2]}}
         <div class="row justify-content-center">
-        <div class="col-5 mb-3">
-        <button type="button" class="btn btn-info btn-sm btn-block" active="btn-primary">option 3</button>
-        </div>
-        <div class="col-5 mb-3">
-        <button type="button" class="btn btn-info btn-sm btn-block" active="btn-primary">option 4</button>
-
+            <div class="col-8">
+                <QuestionCard :questions='randomQuestion'></QuestionCard>
+            </div>
         </div>
     </div>
-  </div>
-</div>
-
-        </div>
-    </div>
-</div>
 </template>
 
 <script>
-export default {
+import QuestionCard from '../components/QuestionCard.vue'
 
-  methods: {
-    fetchQuestion () {
-      this.$state.dispatch('')
+export default {
+  name: 'Play',
+  data () {
+    return {
+      questionList: [],
+      randomQuestion: []
     }
   },
-  created () {
-
+  components: {
+    QuestionCard
+  },
+  sockets: {
+    fetchQuestionsList (payload) {
+			this.$store.commit('setQuestionList', payload)
+    	this.randomizeQuestion()
+    }
+  },
+  methods: {
+    randomizeQuestion () {
+			// console.log(this.randomQuestion);
+      for (let i = 0; i <= 4; i++) {
+        const number = Math.floor(Math.random() * 10)
+        // console.log(this.questionList[0])
+        this.randomQuestion.push(this.$store.state.questionList[number])
+      }
+			// console.log(this.randomQuestion, 'dari randomize')
+			this.$store.commit('setRandomizedQuestion', this.randomQuestion)
+    }
+  },
+  mounted () {
   }
-
 }
 </script>
 
 <style>
-
 </style>

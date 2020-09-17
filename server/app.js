@@ -7,14 +7,13 @@ const io = require('socket.io')(http);
 const axios = require('axios');
 
 // let questionList;
+let players = []
+
+
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
-
-io.on('connection', (socket) => {
-  console.log('a user connected');
-});
 
 axios({
   method: 'GET',
@@ -22,11 +21,35 @@ axios({
 })
   .then(({ data }) => {
     var questionList = data.results
-    console.log(questionList);
+
+    io.on('connection', (socket) => {
+      console.log('a user connected');
+    
+      socket.on('playerJoin', payload => {
+        players.push(payload)
+        console.log(players, '<< ini player')
+        socket.emit('fetchPlayers', players)
+        socket.broadcast.emit('fetchPlayers', players)
+      })
+    
+      socket.on('startPlay', payload => {
+        socket.broadcast.emit("checkPlay", payload)
+        socket.emit('fetchQuestionsList', questionList)
+        socket.broadcast.emit('fetchQuestionsList', questionList)
+      })
+    
+    });
+    // console.log(questionList);
   })
   .catch(({ err }) => {
     console.log(err);
   })
+
+
+
+
+
+
 
 
 http.listen(3000, () => {
