@@ -41,6 +41,15 @@
 <script>
 export default {
 
+  methods: {
+    fetchQuestion () {
+      this.$state.dispatch('')
+    }
+  },
+  created () {
+
+  }
+
 }
 </script>
 
