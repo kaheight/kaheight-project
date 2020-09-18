@@ -52,6 +52,14 @@ axios({
         socket.emit('backToHome', true)
         socket.broadcast.emit('backToHome', true)
       })
+
+      socket.on('exit', payload => {
+        console.log("app");
+        players = []
+        pointsInfo = []
+        socket.emit('backToHome', true)
+        socket.broadcast.emit('backToHome', true)
+      })
     });
     // console.log(questionList);
   })

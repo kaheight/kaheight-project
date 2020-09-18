@@ -10,6 +10,7 @@
         </div>
 
         <button class="btn btn-block btn-info" v-if="players.length >= 2" @click.prevent='startPlay'>Play</button>
+        <button class="btn btn-block btn-info" @click.prevent='leave'>endgame</button>
 
     </div>
 </template>
@@ -21,7 +22,8 @@ export default {
   data () {
     return {
       players: [],
-      play: false
+      play: false,
+      backToHome: false
     }
   },
   methods: {
@@ -29,6 +31,10 @@ export default {
       this.$socket.emit('startPlay', true)
       this.play = true
       new Audio('../assets/background-music-quiz.mp3').play
+    },
+    leave(){
+      console.log("jalan");
+      this.$socket.emit('endgame', {})
     }
   },
   sockets: {
@@ -38,11 +44,17 @@ export default {
     },
     checkPlay (payload) {
       this.play = payload
+    },
+    backToHome(payload){
+      this.backToHome = payload
     }
   },
   watch: {
     play: function () {
       this.$router.push({ name: 'Play' })
+    },
+    backToHome: function(){
+      this.$router.push('/')
     }
   }
 }

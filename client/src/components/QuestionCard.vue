@@ -50,6 +50,9 @@
                 </div>
             </div>
         </div>
+
+        <button class="btn btn-block btn-info" @click.prevent='leave'>endgame</button>
+
     </div>
 </template>
 
@@ -61,7 +64,8 @@ export default {
             number: 4,
             isNext: false,
             point: 0,
-            isDone: false
+            isDone: false,
+            backToHome: false
         }
     },
     props: ['questions'],
@@ -98,6 +102,15 @@ export default {
             this.$router.push({name: 'Scoreboard'})
             
         },
+        leave(){
+            console.log("jalan");
+            this.$socket.emit('endgame', {})
+        }
+    },
+    sockets:{
+        backToHome(payload){
+            this.backToHome = payload
+        }
     },
     computed: {
 
@@ -111,6 +124,9 @@ export default {
             }
             console.log(this.isNext, 'isNext');
 
+        },
+        backToHome: function(){
+            this.$router.push('/')
         }
     },
     created (){
