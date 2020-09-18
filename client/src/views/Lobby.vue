@@ -9,12 +9,13 @@
             </ul>
         </div>
 
-        <button class="btn btn-block btn-info" v-if="players.length > 2" @click.prevent='startPlay'>Play</button>
+        <button class="btn btn-block btn-info" v-if="players.length >= 2" @click.prevent='startPlay'>Play</button>
 
     </div>
 </template>
 
 <script>
+
 export default {
   name: 'Lobby',
   data () {
@@ -27,6 +28,7 @@ export default {
     startPlay () {
       this.$socket.emit('startPlay', true)
       this.play = true
+      new Audio('../assets/background-music-quiz.mp3').play
     }
   },
   sockets: {
