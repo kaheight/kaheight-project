@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Play from '../views/Play.vue'
 import Lobby from '../views/Lobby.vue'
+import Scoreboard from '../views/Scoreboard.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -20,6 +21,11 @@ const routes = [
     path: '/lobby',
     name: 'Lobby',
     component: Lobby
+  },
+  {
+    path: '/scoreboard',
+    name: 'Scoreboard',
+    component: Scoreboard
   }
 ]
 

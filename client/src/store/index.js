@@ -5,14 +5,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    players: [],
+    name:'',
     questionList: [],
     randomizedQuestion: []
   },
   mutations: {
-    setToPlayers (state, value) {
-      state.players = value
-    },
 
     setRandomizedQuestion (state, value){
       state.randomizedQuestion = value;
@@ -20,13 +17,13 @@ export default new Vuex.Store({
 
     setQuestionList (state, value){
       state.questionList= value;
+    },
+
+    setPlayerName(state, value){
+      state.name = value
     }
   },
   actions: {
-    SOCKET_fetchPlayers (context, payload) {
-      context.commit('setToPlayers', payload)
-      console.log('dari store', payload)
-    }
   },
   modules: {
   }

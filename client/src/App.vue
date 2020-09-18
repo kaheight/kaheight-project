@@ -1,12 +1,6 @@
 <template>
   <div id="app">
-    <nav aria-label="breadcrumb" >
-      <ol class="breadcrumb">
-        <button type="button" class="btn btn-outline-info btn-sm ">
-            <span class="fa fa-close" ></span>
-        </button>
-      </ol>
-    </nav>
+    <img class = 'home-logo' src="./assets/question.png" alt="">
     <div class="d-flex justify-content-center align-items-center container">
       <router-view/>
     </div>
@@ -22,16 +16,9 @@
   color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
+.home-logo {
+  width: 16rem; 
+  height:15rem;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
