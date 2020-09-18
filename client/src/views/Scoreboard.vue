@@ -9,7 +9,7 @@
       <li class="list-group-item">{{pointInfo.point}}</li>
     </ul>
   </div>
-  <button class="btn btn-block btn-info" @click.prevent='endgame'>Endgame</button>
+  <button class="btn btn-block btn-info" @click.prevent='checkScore'>Endgame</button>
 </div>
 
 </template>
@@ -20,7 +20,9 @@ export default {
   data (){
     return{
       pointsInfo : [],
-      backToHome: false
+      backToHome: false,
+      winner: '',
+      point: ''
     }
   },
   sockets: {
@@ -34,9 +36,27 @@ export default {
   },
   methods: {
     endgame (){
-      console.log("asdf");
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: `The Winner is ${this.winner}!!`,
+        text: `Score: ${this.point}`,
+        showConfirmButton: false,
+        timer: 1500
+      })
+      console.log(`winner: ${this.winner} point: ${this.point}`);
       this.$socket.emit('endgame', {})
       this.$router.push('/')
+    },
+    checkScore () {
+      console.log(this.pointsInfo, 'ini pointsinfo')
+      this.pointsInfo.forEach(data => {
+        if (data.point > this.point) {
+          this.winner = data.name
+          this.point = data.point
+        }
+        this.endgame()
+      })
     }
   },
   watch: {
