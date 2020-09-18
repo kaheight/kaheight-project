@@ -24,10 +24,6 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    SOCKET_fetchPlayers (context, payload) {
-      context.commit('setToPlayers', payload)
-      console.log('dari store', payload)
-    }
   },
   modules: {
   }

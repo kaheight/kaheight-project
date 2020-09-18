@@ -24,7 +24,8 @@ axios({
 
     io.on('connection', (socket) => {
       console.log('a user connected');
-    
+      socket.emit('initPlayers', players)
+
       socket.on('playerJoin', payload => {
         players.push(payload)
         console.log(players, '<< ini player')

@@ -9,7 +9,7 @@
             </ul>
         </div>
 
-        <button class="btn btn-block btn-info" v-if="players.length >= 2" @click.prevent='startPlay'>Play</button>
+        <button class="btn btn-block btn-info" v-if="players.length > 2" @click.prevent='startPlay'>Play</button>
 
     </div>
 </template>
