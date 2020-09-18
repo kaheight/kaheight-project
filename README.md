@@ -16,3 +16,10 @@ Group project for Hacktiv8
     5. setelah selesai tampilkan tombol play again
     6. atau ke /home
 
+# How to play Kaheight
+
+1. Input your name, then click join
+2. Wait for your opponent in the lobby
+3. Answer the questions in the best of your ability
+4. Wait for your opponent to finish their game
+5. Compare your score
