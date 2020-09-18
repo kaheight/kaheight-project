@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Play from '../views/Play.vue'
-
+import Lobby from '../views/Lobby.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -15,6 +15,11 @@ const routes = [
     path: '/play',
     name: 'Play',
     component: Play
+  },
+  {
+    path: '/lobby',
+    name: 'Lobby',
+    component: Lobby
   }
 ]
 
