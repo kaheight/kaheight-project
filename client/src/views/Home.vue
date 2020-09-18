@@ -40,8 +40,8 @@ export default {
 
     },
     playerJoin () {
+      this.$store.commit('setPlayerName', this.name)
       this.$socket.emit('playerJoin', this.name)
-      // console.log(name)
       this.$router.push({ name: 'Lobby' })
     }
   },

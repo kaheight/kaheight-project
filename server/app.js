@@ -8,7 +8,7 @@ const axios = require('axios');
 
 // let questionList;
 let players = []
-
+let pointsInfo = []
 
 
 app.get('/', (req, res) => {
@@ -38,18 +38,25 @@ axios({
         socket.broadcast.emit('fetchQuestionsList', questionList)
       })
     
+      socket.on('done', payload => {
+        pointsInfo.push(payload)
+        console.log(pointsInfo);
+        socket.emit('fetchPointsInfo', pointsInfo)
+        socket.broadcast.emit('fetchPointsInfo', pointsInfo)
+      })
+
+      socket.on('endgame', payload => {
+        players = []
+        pointsInfo = []
+        socket.emit('backToHome', true)
+        socket.broadcast.emit('backToHome', true)
+      })
     });
     // console.log(questionList);
   })
   .catch(({ err }) => {
     console.log(err);
   })
-
-
-
-
-
-
 
 
 http.listen(3000, () => {

@@ -24,9 +24,13 @@ export default {
     QuestionCard
   },
   sockets: {
-    fetchQuestionsList (payload) {
-			this.$store.commit('setQuestionList', payload)
-    	this.randomizeQuestion()
+    async fetchQuestionsList  (payload) {
+      try{
+			  await this.$store.commit('setQuestionList', payload)
+    	  this.randomizeQuestion()
+      }catch(err){
+        console.log(err);
+      }
     }
   },
   methods: {

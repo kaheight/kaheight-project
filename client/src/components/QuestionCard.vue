@@ -9,7 +9,7 @@
                     <h5
                         class="card-title text-dark pt-3 pb-3 pl-3 pr-3 text-wrap"
                     >
-                    {{question.question}}
+                    {{questions[number].question}}
                     </h5>
                 </div>
             </div>
@@ -19,16 +19,16 @@
                         type="button"
                         class="btn btn-info btn-sm btn-block"
                         active="btn-primary"
-                        @click.prevent="userAnswer(question.correct_answer)"
-                    >{{question.correct_answer}}</button>
+                        @click.prevent="userAnswer(questions[number].correct_answer)"
+                    >{{questions[number].correct_answer}}</button>
                 </div>
                 <div class="col-5 mb-3">
                     <button
                         type="button"
                         class="btn btn-info btn-sm btn-block"
                         active="btn-primary"
-                        @click.prevent="userAnswer(question.incorrect_answers[0])"
-                    >{{question.incorrect_answers[0]}}</button>
+                        @click.prevent="userAnswer(questions[number].incorrect_answers[0])"
+                    >{{questions[number].incorrect_answers[0]}}</button>
                 </div>
             </div>
             <div class="row justify-content-center">
@@ -37,16 +37,16 @@
                         type="button"
                         class="btn btn-info btn-sm btn-block"
                         active="btn-primary"
-                        @click.prevent="userAnswer(question.incorrect_answers[1])"
-                    >{{question.incorrect_answers[1]}}</button>
+                        @click.prevent="userAnswer(questions[number].incorrect_answers[1])"
+                    >{{questions[number].incorrect_answers[1]}}</button>
                 </div>
                 <div class="col-5 mb-3">
                     <button
                         type="button"
                         class="btn btn-info btn-sm btn-block"
                         active="btn-primary"
-                        @click.prevent="userAnswer(question.incorrect_answers[2])"
-                    >{{question.incorrect_answers[2]}}</button>
+                        @click.prevent="userAnswer(questions[number].incorrect_answers[2])"
+                    >{{questions[number].incorrect_answers[2]}}</button>
                 </div>
             </div>
         </div>
@@ -58,44 +58,63 @@ export default {
     name: 'QuestionCard',
     data (){
         return{
-            question: [],
-            number:4,
+            number: 4,
             isNext: false,
-            point: 0
+            point: 0,
+            isDone: false
         }
     },
     props: ['questions'],
     methods: {
-        setQuestion(){
-            console.log(this.$store.state.randomizedQuestion);
-            this.question= this.$store.state.randomizedQuestion[this.number]
-            console.log(this.question);
-            // if(this.number === 0){
-            
-            // }
-            this.number -= 1
-            this.isNext = true;
+        setNumber(){
+            // this.question= {name: 'question'}
+            console.log(this.point);
+            console.log(this.number);
+            if(this.number === 0){
+                this.isDoneCheck()
+            }
+            else{
+                this.number -= 1
+            }
+            // this.isNext = true;
         },
         userAnswer(val){
             // console.log(e);
-            if(val === this.question.correct_answer){
+            // console.log(this.isNext, 'answer');
+            if(val === this.questions[this.number].correct_answer){
                 this.point += 1
             }
-            console.log(this.point);
+            // console.log(this.point);
             this.isNext = true
-        }
+
+        },
+        isDoneCheck(){
+            console.log('test')
+            let payload = {
+                name: this.$store.state.name,
+                point: this.point
+            }
+            this.$socket.emit("done", payload)
+            this.$router.push({name: 'Scoreboard'})
+            
+        },
+    },
+    computed: {
+
     },
     watch: {
         isNext: function (){
-            console.log('masuk ke watch');
+            console.log('masuk ke isNext');
             if (this.isNext){
-                this.setQuestion()
+                this.setNumber()
                 this.isNext = false
             }
+            console.log(this.isNext, 'isNext');
+
         }
     },
-    mounted (){
-        this.setQuestion()
+    created (){
+        // this.setQuestion()
     }
 }
 </script>
