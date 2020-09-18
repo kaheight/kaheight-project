@@ -6,6 +6,9 @@
                 <QuestionCard :questions='randomQuestion'></QuestionCard>
             </div>
         </div>
+         <audio controls autoplay style="display: none;">  
+        <source src="../assets/background-music-quiz.mp3" type="audio/mpeg">  
+    </audio>
     </div>
 </template>
 
